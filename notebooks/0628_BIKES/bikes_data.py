@@ -1,5 +1,6 @@
-# 20240701  전처리
-# 모듈안에 펑션 외부에서 호출
+# 20240701 
+# 서울의 공공자전거 대여 데이터를 전처리하는 함수를 정의하고 실행하는 파이썬 스크립트
+# 데이타를 전처리하고 모듈안에 펑션을 외부(aischoolmain.py)에서 호출함
 
 def data_preprocessing():
     import pandas as pd
@@ -34,7 +35,7 @@ def data_preprocessing():
     return bikes # bikes 데이타프레임 리턴
 
 
-# 내가 자를 부를때만 실행된다.
+# 내가 나를 부를때만 실행된다.
 if __name__=='__main__':
     
     # data_preprocessing() # 내 파일에서 부를떄 실행하겠다.

@@ -1,4 +1,5 @@
 ## pandas 라이브러리를 사용하여 네이버 환율 정보를 가져오는 프로그램 ## 
+# 데이타를 전처리하고 모듈안에 펑션을 외부(aischoolmain.py)에서 호출함
 
 import pandas as pd
 import warnings           

@@ -1,5 +1,7 @@
-# 20240701  전처리
-# 모듈안에 펑션 외부에서 호출
+# 20240701 
+# 서울의 공공자전거 대여 데이터에 대한 분석과 시각화를 수행하는 Streamlit 애플리케이션
+# Streamlit은 데이터 과학자와 AI/ML 엔지니어가 몇 줄의 코드로 대화형 데이터 앱을 만들 수 있게 해주는 오픈 소스 Python 프레임워크
+# 데이타를 전처리하고 모듈안에 펑션을 외부(aischoolmain.py)에서 호출함
 
 def bikes_da() : 
     import streamlit as st
@@ -10,6 +12,7 @@ def bikes_da() :
     plt.rc('font',family='Malgun Gothic')
     import streamlit.components.v1 as components
 
+    # 데이터 전처리를 위한 함수를 정의합니다.
     @st.cache_data
     def data_preprocessing():
         # 데이터 불러와서 합치기
@@ -38,14 +41,18 @@ def bikes_da() :
 
         return bikes # bikes 데이타프레임 리턴
 
+    # 전처리된 데이터를 가져옵니다.
     bikes = data_preprocessing()
 
+    ############################ Streamlit 애플리케이션의 탭을 정의합니다######################################################
     tab1, tab2, tab3 = st.tabs(['데이터보기','시간적 분석','인기대여소'])
     with tab1 :
+        ######### '데이터보기' 탭에서는 DataFrame의 처음 30행을 표시합니다.
         # st. write("tab1")
         st.dataframe(bikes.head(30))
 
     with tab2 :
+        ######### '시간적 분석' 탭에서는 '요일', '일자', '대여시간대'별로 자전거 대여 수를 시각화하는 여러 count plot과 히트맵을 생성합니다.
         # st. write("tab2")    
         chart_name = ['요일','일자','대여시간대']
 
@@ -70,12 +77,14 @@ def bikes_da() :
                     * 출퇴근
                     ''')
         
+        # 요일별, 시간대별 이용건수를 히트맵으로 표시합니다.
         hourly_dayofweek_ride = bikes.pivot_table(index='대여시간대', columns='요일', values='자전거번호', aggfunc='count')
         fig, ax = plt.subplots(figsize=(15, 10))
         ax = sns.heatmap(data=hourly_dayofweek_ride, annot=True, fmt='d')
         st.pyplot(fig)
 
     with tab3 :
+        ######### '인기대여소' 탭에서는 주말 동안 가장 많은 대여가 이루어진 상위 50개의 자전거 대여점을 식별하고 지도에 표시합니다.
         # st. write("tab3")
         rent_bike = bikes.pivot_table(index=['대여 대여소명','대여점위도','대여점경도'],
                                 columns=['주말구분'],
@@ -89,7 +98,7 @@ def bikes_da() :
         center = [lat, lon]
         map1 = folium.Map(location=center, zoom_start=11)
 
-
+        # 지도에 마커를 추가합니다.
         for i in weekend_house50.index :
             sub_lat = weekend_house50.loc[i,'대여점위도']
             sub_lon = weekend_house50.loc[i,'대여점경도']
@@ -103,5 +112,7 @@ def bikes_da() :
         # 지도 시각화
         components.html(map1._repr_html_(), height=400)
 
+
+# 메인 프로그램으로 실행될 때 bikes_da 함수를 호출
 if __name__=="__main__":
     bikes_da()

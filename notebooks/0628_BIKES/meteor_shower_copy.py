@@ -1,14 +1,15 @@
-# 파이썬 코드만 들어가는 파일
+# 데이타를 전처리하고 모듈안에 펑션을 외부(aischoolmain.py)에서 호출함
+
 #pip install pandas
 
 import pandas as pd
 import streamlit as st
 
 # 데이터프레임을 CSV 파일에서 불러옴, 유성우, 도시, 별자리, 달의 위상정보
-meteorshowers = pd.read_csv(r"..\..\data\meteorshowers.csv") #  r : 뒤에 경로를 문자로 인식하기
-cities = pd.read_csv(r"..\..\data\cities.csv")
-constellations = pd.read_csv(r"..\..\data\constellations.csv")
-moonphases = pd.read_csv(r"..\..\data\moonphases.csv")
+meteorshowers = pd.read_csv(r"data\meteorshowers.csv") #  r : 뒤에 경로를 문자로 인식하기
+cities = pd.read_csv(r"data\cities.csv")
+constellations = pd.read_csv(r"data\constellations.csv")
+moonphases = pd.read_csv(r"data\moonphases.csv")
 
 
 ###################################################################################################

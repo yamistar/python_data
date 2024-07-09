@@ -1,7 +1,7 @@
 import streamlit as st
-import finance_naver_copy ##### finance_naver_copy.py 임포트
-import bikes_da
-import meteor_shower_copy
+import finance_naver_copy   ##### finance_naver_copy.py 임포트
+import bikes_da             ##### bikes_da.py 임포트
+import meteor_shower_copy   ##### meteor_shower_copy.py 임포트
 
 # 사이드바
 st.sidebar.header('로그인')
